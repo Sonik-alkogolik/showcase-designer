@@ -3,31 +3,31 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Атрибуты, доступные для массового присвоения.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'telegram_id',
+        'telegram_username',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Атрибуты, скрытые при сериализации.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -35,7 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Кастинг атрибутов.
      *
      * @return array<string, string>
      */
@@ -44,6 +44,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'telegram_verified_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Проверяет, подтверждён ли пользователь через Telegram.
+     *
+     * @return bool
+     */
+    public function isTelegramVerified(): bool
+    {
+        return ! is_null($this->telegram_verified_at);
     }
 }
