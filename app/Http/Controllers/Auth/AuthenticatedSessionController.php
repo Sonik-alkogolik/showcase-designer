@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,6 +41,50 @@ class AuthenticatedSessionController extends Controller
         return response()->noContent();
     }
 }
+
+
+// namespace App\Http\Controllers\Auth;
+
+// use App\Http\Controllers\Controller;
+// use App\Models\User;
+// use Illuminate\Http\Request;
+// use Illuminate\Http\Response;
+// use Illuminate\Support\Facades\Hash;
+
+// class AuthenticatedSessionController extends Controller
+// {
+//     /**
+//      * Handle an incoming authentication request for API.
+//      */
+//     {
+//         $request->validate([
+//             'email' => ['required', 'email'],
+//             'password' => ['required'],
+//         ]);
+
+//         $user = User::where('email', $request->email)->first();
+
+//         if (! $user || ! Hash::check($request->password, $user->password)) {
+//             return response()->json(['message' => 'Invalid credentials'], 401);
+//         }
+
+//         // Создаём токен Sanctum
+//         $token = $user->createToken('auth-token')->plainTextToken;
+
+//         return response()->json(['token' => $token], 200);
+//     }
+
+//     /**
+//      * Destroy the current access token (logout).
+//      */
+//     public function destroy(Request $request): Response
+//     {
+//         // Удаляем текущий токен
+//         $request->user()->currentAccessToken()->delete();
+
+//         return response()->noContent();
+//     }
+// }
 
 // namespace App\Http\Controllers\Auth;
 

@@ -22,6 +22,8 @@ class User extends Authenticatable
         'password',
         'telegram_id',
         'telegram_username',
+        'telegram_verification_code',
+        'telegram_verified_at',
     ];
 
     /**
@@ -32,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'telegram_verification_code',
     ];
 
     /**
@@ -56,5 +59,19 @@ class User extends Authenticatable
     public function isTelegramVerified(): bool
     {
         return ! is_null($this->telegram_verified_at);
+    }
+
+
+        /**
+     * Отмечает пользователя как верифицированного через Telegram.
+     *
+     * @return bool
+     */
+    public function markTelegramAsVerified(): bool
+    {
+        return $this->update([
+            'telegram_verified_at' => now(),
+            'telegram_verification_code' => null,
+        ]);
     }
 }

@@ -16,3 +16,7 @@ Route::middleware(['auth:sanctum', 'ensure.telegram.verified'])->group(function 
         return response()->json(['message' => 'Доступ разрешён: Telegram подтверждён!']);
     });
 });
+
+Route::get('/test-cors', function () {
+    return response()->json(['message' => 'CORS работает!']);
+});

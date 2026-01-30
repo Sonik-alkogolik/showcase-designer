@@ -15,15 +15,27 @@ return [
     |
     */
 
-    'paths' => ['*'],
+    // 'paths' => ['*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
+    // 'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
+    'allowed_origins' => [
+        'https://ec-dn.ru:98',
+        'http://localhost:5173',
+    ],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    // 'allowed_headers' => ['*'],
+    'allowed_headers' => [
+        'Authorization',
+        'Content-Type',
+        'Accept',
+        'X-Requested-With',
+        'X-CSRF-TOKEN',
+    ],
 
     'exposed_headers' => [],
 
