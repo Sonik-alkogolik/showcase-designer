@@ -73,14 +73,14 @@ class SupportTicketMessageResource extends ModelResource
         ];
     }
 
-    protected function detailFields(): iterable
-    {
-        return [
-            Text::make('Переписка', 'body')
-                ->changePreview(fn (): string => $this->renderConversationHtml())
-                ->withoutWrapper(),
-        ];
-    }
+    // protected function detailFields(): iterable
+    // {
+    //     return [
+    //         Text::make('Переписка', 'body')
+    //             ->changePreview(fn (): string => $this->renderConversationHtml())
+    //             ->withoutWrapper(),
+    //     ];
+    // }
 
     private function renderConversationHtml(): string
     {

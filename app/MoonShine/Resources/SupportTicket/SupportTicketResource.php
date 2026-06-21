@@ -42,12 +42,58 @@ class SupportTicketResource extends ModelResource
         ];
     }
 
-    public function messagesHistory(): HasMany
-    {
-        return HasMany::make('История переписки', 'messages', resource: SupportTicketMessageResource::class)
-            ->disableOutside()
-            ->withoutActions(Action::CREATE, Action::UPDATE, Action::DELETE, Action::MASS_DELETE);
-    }
+    public function messagesHistory(): \MoonShine\UI\Components\FlexibleRender
+{
+    return \MoonShine\UI\Components\FlexibleRender::make(function () {
+        $ticket = $this->getItem();
+
+        if (!$ticket instanceof SupportTicket) {
+            return '<div class="text-sm text-slate-500">Тикет не найден.</div>';
+        }
+
+        $messages = $ticket->messages()
+            ->orderBy('created_at', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        if ($messages->isEmpty()) {
+            return '<div class="text-sm text-slate-500">Сообщений пока нет.</div>';
+        }
+
+        $html = '<div class="table-container"><div class="table-responsive">';
+        $html .= '<table class="table table-list">';
+        $html .= '<thead><tr>';
+        $html .= '<th>ID</th>';
+        $html .= '<th>Имя</th>';
+        $html .= '<th>Отправитель</th>';
+        $html .= '<th>Сообщение</th>';
+        $html .= '<th>Создано</th>';
+        $html .= '</tr></thead><tbody>';
+
+        foreach ($messages as $message) {
+            $senderType = match ($message->sender_type) {
+                'admin' => 'Администратор',
+                'system' => 'Система',
+                default => 'Пользователь',
+            };
+            $createdAt = $message->created_at?->format('d.m.Y H:i') ?? '';
+            $body = e($message->body);
+            $senderName = e($message->sender_name ?? '');
+
+            $html .= "<tr>";
+            $html .= "<td>{$message->id}</td>";
+            $html .= "<td>{$senderName}</td>";
+            $html .= "<td>{$senderType}</td>";
+            $html .= "<td><div class='text-ellipsis'>{$body}</div></td>";
+            $html .= "<td>{$createdAt}</td>";
+            $html .= "</tr>";
+        }
+
+        $html .= '</tbody></table></div></div>';
+
+        return $html;
+    });
+}
 
     private function replyField(): Textarea
     {
