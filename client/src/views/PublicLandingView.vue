@@ -5,7 +5,7 @@
 
     <div class="hero">
       <div class="hero-content">
-        <p class="eyebrow">t-go</p>
+        <p class="eyebrow">e-tgo</p>
         <h1>Создавайте магазины в Telegram быстро и без лишней настройки</h1>
         <p class="lead">
           Сервис помогает собрать витрину, показать каталог и принимать заказы в одном кабинете.
@@ -124,7 +124,7 @@
     <section class="about">
       <h2>Кратко о проекте</h2>
       <p>
-        t-go - это платформа для запуска и управления продажами в Telegram.
+        e-tgo - это платформа для запуска и управления продажами в Telegram.
         Вы управляете товарами, ценами и магазинами из одного места, а клиенты получают удобный WebApp-интерфейс.
       </p>
 
@@ -145,6 +145,8 @@
     </section>
   </section>
 </template>
+
+
 
 <style scoped>
 .guest-landing {
@@ -178,7 +180,6 @@
   gap: 0.45rem;
   font-size: 0.78rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--color-muted);
   margin-bottom: 1rem;
 }

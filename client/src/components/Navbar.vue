@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-container">
       <router-link :to="isAuthenticated ? '/shops' : '/'" class="navbar-brand">
-        <h1>t-go</h1>
+        <a href="/">e-tgo</a>
       </router-link>
       
       <button
